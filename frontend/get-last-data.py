@@ -11,7 +11,7 @@ ts = []
 scale = int(os.environ["QUERY_STRING"].split('=')[1])
 max_delay = 600
 
-now = int(time.time())
+now = int(time.mktime(time.gmtime()))
 now_aligned = now - now % scale
 beg = (now - max_delay)
 
