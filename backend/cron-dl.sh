@@ -1,6 +1,9 @@
 #! /bin/bash
 
-SEQ=`wget -o /dev/null -O /dev/stdout http://download.openstreetmap.fr/replication/planet/minute/state.txt|grep sequenceNumber|cut -d '=' -f 2`
+#SOURCE=https://download.openstreetmap.fr/replication/planet/minute/
+SOURCE=https://planet.openstreetmap.org/replication/minute/
+
+SEQ=`wget -o /dev/null -O /dev/stdout $SOURCE/state.txt|grep sequenceNumber|cut -d '=' -f 2`
 
 MM=$[$SEQ/1000000]
 KK=$[$SEQ-$MM*1000000]
@@ -12,4 +15,4 @@ C=`printf %03d $UU`
 
 echo $A/$B/$C
 
-wget -o /dev/null -O /dev/stdout http://download.openstreetmap.fr/replication/planet/minute/$A/$B/$C.osc.gz|gunzip -c|python compute-changeset-data.py
+wget -o /dev/null -O /dev/stdout $SOURCE/$A/$B/$C.osc.gz|gunzip -c|python compute-changeset-data.py
