@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <title>OpenStreetMap live edits - live.openstreetmap.fr</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <script src="jquery-1.8.0.min.js"></script>
 <script src="highcharts/js/highcharts.js"></script>
 <script src="jquery.scrollTo-min.js"></script>
@@ -12,6 +12,8 @@
 <script src="jquery.dateFormat-1.0.js"></script>
 <script src="jquery.lightbox_me.js"></script>
 
+<link rel="icon" href="i/osm-logo.png" />
+
 <style>
 body {
     min-height: 100%;
@@ -21,10 +23,8 @@ body {
 }
 
 #about {
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
-        -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
-        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;;
+        border-radius: 6px;
+        box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;
         padding: 14px 22px;
         width: 400px;
         position: relative;
@@ -60,7 +60,7 @@ div.counter_tooltip em {
     display: none;
 }
 
-div.counter_tooltip: hover {
+div.counter_tooltip:hover {
     border: 0; 
     position: relative; 
     z-index: 500; 
@@ -294,10 +294,10 @@ table {
 
 <ul>
   <li>Map data CC-by-SA by <a href="http://www.openstreetmap.org">The OpenStreetMap project</a></li>
-  <li>Some map tiles by <a href="http://www.mapquest.com">MapQuest</a></li>
 </ul>
 
-Source code for the osm-livechanges project can be found on <a href="https://github.com/cstenac/osm-livechanges">Github</a>
+Original source code is on <a href="https://github.com/cstenac/osm-livechanges">cstenac/osm-livechanges</a>
+and this modified version at <a href="https://github.com/osm-fr/osm-livechanges">osm-fr/osm-livechanges</a>
 </div>
 
 </body>
