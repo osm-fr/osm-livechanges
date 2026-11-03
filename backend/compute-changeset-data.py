@@ -7,7 +7,7 @@ root = etree.parse(sys.stdin)
 
 changesetData = {}
 db = sqlite3.connect("changesets.db")
-db.execute("PRAGMA journal_mode=WAL")
+#db.execute("PRAGMA journal_mode=WAL")
 db.execute("PRAGMA busy_timeout=5000")
 db.row_factory = sqlite3.Row
 
