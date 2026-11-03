@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 
 from lxml import etree
 import sys, time, datetime, math, sqlite3, iso8601
@@ -10,7 +10,7 @@ db = sqlite3.connect("changesets.db")
 db.row_factory = sqlite3.Row
 
 def getChangeset(id):
-    if changesetData.has_key(id):
+    if id in changesetData:
         return changesetData[id]
     x = {
       "minLon" : -180.0, "maxLon": 180.0, "minLat": -90.0, "maxLat" : 90.0,
@@ -23,7 +23,7 @@ def getChangeset(id):
     # Load changeset from DB if already exists
     c = db.cursor()
     for row in c.execute("SELECT * from changeset WHERE id=?", (id,)):
-        print "Reloading changeset %s" % id
+        print( f"Reloading changeset {id}" )
         x["updated"] = row["updated"] + 1
         x["minLon"] = row["minLon"]
         x["minLat"] = row["minLat"]
@@ -110,7 +110,7 @@ for cnode in root.xpath("delete/relation"):
 tuples = []
 tag_tuples = []
 c = db.cursor()
-for id in changesetData.keys():
+for id, d in changesetData.items():
     d = changesetData[id]
     tuples.append(
             (d["id"], d["user"], d["uid"], d["time"],
@@ -118,8 +118,8 @@ for id in changesetData.keys():
             d["cnode"], d["mnode"], d["dnode"],
             d["cway"], d["mway"], d["dway"],
             d["crel"], d["mrel"], d["drel"], d["updated"]))
-    print "%s [%s] -> %s" % (id, changesetData[id]["time"], changesetData[id])
-    for tagKey,tagVal in changesetData[id]["tags"].items():
+    print(f"{id} [{d['time']}] -> {d}")
+    for tagKey, tagVal in d["tags"].items():
         tag_tuples.append((d["id"], tagKey, tagVal));
     # Remove prev data
     c.execute("DELETE FROM changeset where id=?", (id,))
