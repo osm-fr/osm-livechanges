@@ -1,9 +1,13 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 
-import sys, time, datetime, math, sqlite3, json, cgi, os, cgitb, urllib2
+import cgitb
+import json
+import os
+import sqlite3
+import time
 
-print "Content-Type: application/json"
-print ""
+print("Content-Type: application/json")
+print("\n")
 
 cgitb.enable()
 data = {}
@@ -16,7 +20,9 @@ now = int(time.mktime(time.gmtime()))
 now_aligned = now - now % scale
 beg = (now - max_delay)
 
-db = sqlite3.connect("/data/work/live/changesets.db")
+db = sqlite3.connect("../backend/changesets.db")
+db.execute("PRAGMA journal_mode=WAL")
+db.execute("PRAGMA busy_timeout=5000")
 db.row_factory = sqlite3.Row
 c = db.cursor()
 
@@ -82,6 +88,5 @@ for time in xrange(now_aligned - max_delay, now_aligned, scale):
         break
 
 data["timeseries"] = ts
-print json.dumps(data)
-
+print(json.dumps(data))
 

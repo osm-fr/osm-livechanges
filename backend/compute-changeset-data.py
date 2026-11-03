@@ -7,6 +7,8 @@ root = etree.parse(sys.stdin)
 
 changesetData = {}
 db = sqlite3.connect("changesets.db")
+db.execute("PRAGMA journal_mode=WAL")
+db.execute("PRAGMA busy_timeout=5000")
 db.row_factory = sqlite3.Row
 
 def getChangeset(id):
@@ -127,6 +129,12 @@ db.commit()
 c = db.cursor()
 c.executemany("INSERT INTO changeset (id, user, uid, time, minLon, minLat, maxLon, maxLat, cnode, mnode, dnode, cway, mway, dway, crel, mrel, drel, updated) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", tuples)
 c.executemany("INSERT INTO changeset_content_tag VALUES (?,?,?)", tag_tuples)
+db.commit()
+
+cutoff = int(time.time()) - 86400
+c = db.cursor()
+c.execute("DELETE FROM changeset_content_tag WHERE changeset_id IN (SELECT id FROM changeset WHERE time < ?)", (cutoff,))
+c.execute("DELETE FROM changeset WHERE time < ?", (cutoff,))
 db.commit()
 #doc = ElementTree(file='915.osc')
 #

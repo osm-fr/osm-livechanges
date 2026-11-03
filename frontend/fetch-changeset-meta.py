@@ -1,16 +1,16 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import sys, time, datetime, math, sqlite3, json, cgi, os, urllib2
 from lxml import etree
 
-print "Content-Type: application/json"
-print ""
+print("Content-Type: application/json")
+print("\n")
 
 
 changesetId = int(os.environ["QUERY_STRING"].split('=')[1])
 
 data = { "id": changesetId, "tags" : {}, "requested" : False }
 
-db = sqlite3.connect("/data/work/live/changesets.db")
+db = sqlite3.connect("../backend/changesets.db")
 db.row_factory = sqlite3.Row
 c = db.cursor()
 
@@ -33,6 +33,6 @@ else:
         c.execute("INSERT INTO changeset_meta_tag (changeset_id,key,value) VALUES(?,?,?)",(changesetId,tag.get("k"), tag.get("v")));
 
 db.commit()
-print json.dumps(data)
+print(json.dumps(data))
 
 
