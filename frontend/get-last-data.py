@@ -20,7 +20,7 @@ try:
     beg = (now - max_delay)
 
     db = sqlite3.connect("../backend/changesets.db")
-    db.execute("PRAGMA journal_mode=WAL")
+    #db.execute("PRAGMA journal_mode=WAL")
     db.execute("PRAGMA busy_timeout=5000")
     db.row_factory = sqlite3.Row
     c = db.cursor()
