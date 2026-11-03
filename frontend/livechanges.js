@@ -232,11 +232,11 @@ if (dbg) console.warn("Changeset to zoom on not found !");
  
 
     $("#currentChangeset").html("Changeset <a target='_blank' href=\"https://osm.org/browse/changeset/" + id + "\">" + id + "</a> by <a target='_blank' href=\"https://osm.org/user/" + user + "\">" + user + "</a> " + getFlagImgHtml(changeset));
-	$("#detail").html("<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/b/b5/Mf_node.png' width=20 height=20> "
+	$("#detail").html("<img style='padding: 2px; vertical-align:middle;' src='/i/node.png' width=20 height=20> "
 		+ cnode + " node"+pluriel(cnode)+" added, " + mnode + " modified, " + dnode+" deleted<br>"
-		+ "<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/6/6a/Mf_way.png' width=20 height=20> "
+		+ "<img style='padding: 2px; vertical-align:middle;' src='/i/way.png' width=20 height=20> "
 		+ cway + " way"+pluriel(cway)+" added, " + mway + " modified, " + dway +" deleted<br>"
-		+ "<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/thumb/d/d9/Mf_Relation.svg/20px-Mf_Relation.svg.png' width=20 height=20> "
+		+ "<img style='padding: 2px; vertical-align:middle;' src='/i/relation.png' width=20 height=20> "
 		+ crel + " relation"+pluriel(crel)+" added, " + mrel + " modified, " + drel +" deleted"
 	);
 
@@ -617,22 +617,13 @@ formatter: function() {
             attribution: '<a href="https://osm.org/">OpenStreetMap</a>',
             opacity: 0.5
         });
-        var nasa = new L.TileLayer(
-            'https://a.tiles.mapbox.com/v3/mapbox.blue-marble-topo-bathy-jul/{z}/{x}/{y}.png', {
-            detectRetina: true, reuseTiles: true,
-            maxZoom: 14,
-            attribution: '<a href="https://osm.org/">OpenStreetMap</a> and <a href="https://tiles.mapbox.com/mapbox/map/blue-marble-topo-bathy-jul">NASA Bluemarble@MapBox</a>',
-            opacity: 1
-        });
-        var world = new L.tileLayer('https://{s}.tiles.mapbox.com/v3/mapbox.world-bank-borders-en/{z}/{x}/{y}.png', {
-            detectRetina: true, reuseTiles: true
-        });
-        var bluemarble = new L.layerGroup([nasa, world]);
 
         heatLayer = new L.TileLayer.HeatCanvas("Heatmap", map, {},
                     { 'step' : 0.2, 'degree' : L.TileLayer.HeatCanvas.QUAD, 'opacity': 0.4});
 
-        var control = new L.Control.Layers(  { "OSM-FR": omq, "OSM.org (Mapnik)": mapnik , "NASA Blue Marble @ Mapbox" : bluemarble}, { "Heat Map" : heatLayer, "Markers" : markersGroup } );
+        var control = new L.Control.Layers(
+            { "OSM-FR": omq, "OSM.org (Mapnik)": mapnik },
+            { "Heat Map" : heatLayer, "Markers" : markersGroup } );
         map = new L.Map('map', {
             center: new L.LatLng(25, 0),
             zoom:3

@@ -18,13 +18,13 @@ Diffs are pulled every minute, and information is aggregated from them, to gathe
 
 Information is saved to a SQLite database.
 
-
 This is handled by the backend/compute-changeset-data.py script
 
+Requires Python 3.
 
 ### Frontend side
 
-Each minute, data is fetched using frontend/get-last-data.py
+Every 5 seconds, the JS client fetches `get-last-data.py`.
 
 This script aggregates the changesets using a configurable period (generally 10s). It computes aggregate statistics for the period, and the full list of changesets for each period.
 
@@ -37,7 +37,8 @@ A random changeset from the period is selected and zoomed. Its meta is optionnal
 Authors
 -------
 
-Created by Christian Quest and Clément Stenac
+Created by Christian Quest and Clément Stenac.
+Updated by Marc_marc, whatismoss, Cyrille37.
 
 License
 -------
@@ -55,7 +56,7 @@ The osm-livechanges code itself is available under the Apache License Version 2.
 Basically, you can use it, modify it and redistribute it for whatever purposes, provided that you 
 do it using a compatible license.
 
-Copyright 2012 OpenStreetMap France
+Copyright 2012-2026 OpenStreetMap France
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
