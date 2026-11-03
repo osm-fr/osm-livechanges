@@ -389,12 +389,12 @@ function nextDataTick(){
         var bestStamp = now - 140;
 if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
 //        console.log("Found range " + firstPoint +" to " + lastPoint);
-        downloadData(); // downloadData will reschedule the tick
-
         /* We only redraw the heatLayer each download, because it's slow */
         if (map.hasLayer(heatLayer)) {
             heatLayer._redraw();
         }
+
+        setTimeout(function() { downloadData(); }, scale * 1000);
 
         return;
     }
