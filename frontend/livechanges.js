@@ -18,7 +18,7 @@ var currentlyDetailedIndex = 0;
 
 var scale=5;
 var chart_points = 10;
-var timeOffset= 140;
+var timeOffset= 40;
 var startTime = new Date().getTime();
 var totalCNode = 0, totalMNode = 0, totalDNode = 0;
 var totalCWay = 0, totalMWay = 0, totalDWay = 0;
@@ -276,7 +276,7 @@ function onBottomMapReady() {
  * This function returns undefined if there is no good point
  * to draw */
 function getBestPoint(now) {
-    var bestStamp = now - 140;
+    var bestStamp = now - timeOffset;
 
     if (currentData == undefined) return; // Should not happen !
     //console.log("Parsing data " + currentData["timeseries"].length);
@@ -397,7 +397,7 @@ function nextDataTick(){
     firstTick = false;
 
     if (bestPoint == undefined) {
-        var bestStamp = now - 140;
+        var bestStamp = now - timeOffset;
 if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
 //        console.log("Found range " + firstPoint +" to " + lastPoint);
         /* We only redraw the heatLayer each download, because it's slow */
