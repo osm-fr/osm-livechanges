@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
+
 import sys, time, datetime, math, sqlite3, json, cgi, os, cgitb, urllib2
 
 print "Content-Type: application/json"
@@ -11,7 +12,7 @@ ts = []
 scale = int(os.environ["QUERY_STRING"].split('=')[1])
 max_delay = 600
 
-now = int(time.time())
+now = int(time.mktime(time.gmtime()))
 now_aligned = now - now % scale
 beg = (now - max_delay)
 

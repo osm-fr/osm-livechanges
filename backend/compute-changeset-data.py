@@ -1,3 +1,5 @@
+#! /usr/bin/env python2
+
 from lxml import etree
 import sys, time, datetime, math, sqlite3, iso8601
 
@@ -55,7 +57,7 @@ def getAndUpdate(node):
     change["uid"] = node.get("uid")
 #    change["time"] = time.mktime(isodate.parse_datetime(node.get("timestamp")).timetuple())
 #    change["time"] = time.mktime(datetime.datetime.strptime(node.get("timestamp"), "%Y-%m-%dT%H:%M:%S%Z").timetuple())
-    change["time"] = time.mktime(iso8601.parse_date(node.get("timestamp")).timetuple()) + 3600 # SOMETHING IS FUCKING WRONG !
+    change["time"] = time.mktime(iso8601.parse_date(node.get("timestamp")).timetuple())
     return change
  
 for cnode in root.xpath("create/node"):

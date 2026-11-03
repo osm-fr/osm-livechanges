@@ -231,12 +231,12 @@ if (dbg) console.warn("Changeset to zoom on not found !");
     var drel = changeset["drel"];
  
 
-    $("#currentChangeset").html("Changeset <a target='_blank' href=\"http://osm.org/browse/changeset/" + id + "\">" + id + "</a> by <a target='_blank' href=\"http://osm.org/user/" + user + "\">" + user + "</a> " + getFlagImgHtml(changeset));
-	$("#detail").html("<img style='padding: 2px; vertical-align:middle;' src='http://wiki.openstreetmap.org/w/images/b/b5/Mf_node.png' width=20 height=20> "
+    $("#currentChangeset").html("Changeset <a target='_blank' href=\"https://osm.org/browse/changeset/" + id + "\">" + id + "</a> by <a target='_blank' href=\"https://osm.org/user/" + user + "\">" + user + "</a> " + getFlagImgHtml(changeset));
+	$("#detail").html("<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/b/b5/Mf_node.png' width=20 height=20> "
 		+ cnode + " node"+pluriel(cnode)+" added, " + mnode + " modified, " + dnode+" deleted<br>"
-		+ "<img style='padding: 2px; vertical-align:middle;' src='http://wiki.openstreetmap.org/w/images/6/6a/Mf_way.png' width=20 height=20> "
+		+ "<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/6/6a/Mf_way.png' width=20 height=20> "
 		+ cway + " way"+pluriel(cway)+" added, " + mway + " modified, " + dway +" deleted<br>"
-		+ "<img style='padding: 2px; vertical-align:middle;' src='http://wiki.openstreetmap.org/w/images/thumb/d/d9/Mf_Relation.svg/20px-Mf_Relation.svg.png' width=20 height=20> "
+		+ "<img style='padding: 2px; vertical-align:middle;' src='https://wiki.openstreetmap.org/w/images/thumb/d/d9/Mf_Relation.svg/20px-Mf_Relation.svg.png' width=20 height=20> "
 		+ crel + " relation"+pluriel(crel)+" added, " + mrel + " modified, " + drel +" deleted"
 	);
 
@@ -453,7 +453,7 @@ if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
 			var time = $.format.date(d, "HH:mm:ss"); // d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
 
 
-            var html = "<td class='log_time'><a href=\"#\" onClick=\"setDetailedChangeset("+changeset["id"]+",false);return(false)\">" + time + "</a></td><td class='log_user'><a target='_blank' href='http://osm.org/user/"+u+"'>" + u + "</a></td>";
+            var html = "<td class='log_time'><a href=\"#\" onClick=\"setDetailedChangeset("+changeset["id"]+",false);return(false)\">" + time + "</a></td><td class='log_user'><a target='_blank' href='https://osm.org/user/"+u+"'>" + u + "</a></td>";
 	/*                html += "<td class='log_cnode'>" + changeset["cnode"] +  "</td><td class='log_mnode'>" + changeset["mnode"] +  "</td><td class='dog_cnode'>" + changeset["dnode"] + "</td>";
 					html += "<td class='log_cway'>" + changeset["cway"] +  "</td><td class='log_mway'>" + changeset["mway"] +  "</td><td class='log_dway'>" + changeset["dway"] + "</td>";
 					html += "<td class='log_crel'>" + changeset["crel"] +  "</td><td class='log_mrel'>" + changeset["mrel"] +  "</td><td class='log_drel'>" + changeset["drel"] + "</td>";
@@ -462,7 +462,7 @@ if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
 				parseInt( changeset["cnode"]) +  parseInt( changeset["mnode"])+ parseInt( changeset["dnode"]) +
 				parseInt( changeset["cway"]) +  parseInt( changeset["mway"])+ parseInt( changeset["dway"]) +
 				parseInt( changeset["crel"]) +  parseInt( changeset["mrel"])+ parseInt( changeset["drel"]);
-			html += "<td class='log_edits'><a target='_blank' href='http://osm.org/browse/changeset/"+changeset["id"]+"'>" + total + "</a>"
+			html += "<td class='log_edits'><a target='_blank' href='https://osm.org/browse/changeset/"+changeset["id"]+"'>" + total + "</a>"
             html += "</td><td class='log_right'></td>";
             html += "<td>" + getFlagImgHtml(changeset) + "</td>";
 /*
@@ -607,24 +607,24 @@ formatter: function() {
 
     /* Initialize the top map */
     {
-        var mapnik = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var mapnik = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 14,
             attribution: 'OpenStreetMap'
         });
         var omq = new L.TileLayer(
-            'http://tilecache.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            'https://tilecache.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             maxZoom: 14,
-            attribution: '<a href="http://osm.org/">OpenStreetMap</a>',
+            attribution: '<a href="https://osm.org/">OpenStreetMap</a>',
             opacity: 0.5
         });
         var nasa = new L.TileLayer(
-            'http://a.tiles.mapbox.com/v3/mapbox.blue-marble-topo-bathy-jul/{z}/{x}/{y}.png', {
+            'https://a.tiles.mapbox.com/v3/mapbox.blue-marble-topo-bathy-jul/{z}/{x}/{y}.png', {
             detectRetina: true, reuseTiles: true,
             maxZoom: 14,
-            attribution: '<a href="http://osm.org/">OpenStreetMap</a> and <a href="http://tiles.mapbox.com/mapbox/map/blue-marble-topo-bathy-jul">NASA Bluemarble@MapBox</a>',
+            attribution: '<a href="https://osm.org/">OpenStreetMap</a> and <a href="https://tiles.mapbox.com/mapbox/map/blue-marble-topo-bathy-jul">NASA Bluemarble@MapBox</a>',
             opacity: 1
         });
-        var world = new L.tileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.world-bank-borders-en/{z}/{x}/{y}.png', {
+        var world = new L.tileLayer('https://{s}.tiles.mapbox.com/v3/mapbox.world-bank-borders-en/{z}/{x}/{y}.png', {
             detectRetina: true, reuseTiles: true
         });
         var bluemarble = new L.layerGroup([nasa, world]);
@@ -646,7 +646,7 @@ formatter: function() {
     /* Initialize the bottom map */
     {
         inactiveMap["poly"] = undefined;
-        var mapnik = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var mapnik = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 15,attribution: 'OpenStreetMap'
         });
         // setup the small alternating smallmaps
@@ -658,7 +658,7 @@ formatter: function() {
         });
         inactiveMap["map"].addLayer(mapnik);
         /*
-        var mapnik = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var mapnik = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'OpenStreetMap'
         });
         smallMap2 = new L.Map('smallMap2', {
