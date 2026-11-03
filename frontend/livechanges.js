@@ -26,7 +26,7 @@ var totalCRel = 0, totalMRel = 0, totalDRel = 0;
 var totalChangesets = 0;
 var seenUsers = Array();
 var log_even = true;
-var firstTick = true;
+var lastPlayedTime = -1;
 
 // Top map
 var map = undefined;
@@ -276,22 +276,25 @@ function onBottomMapReady() {
  * This function returns undefined if there is no good point
  * to draw */
 function getBestPoint(now) {
-    var bestStamp = now - timeOffset;
+    if (currentData == undefined) return;
 
-    if (currentData == undefined) return; // Should not happen !
-    //console.log("Parsing data " + currentData["timeseries"].length);
     var bestPoint = undefined;
-    var firstPoint = 99999999999, lastPoint = 0;
-    for (var i in currentData["timeseries"]) {
-        var thisTime = currentData["timeseries"][i]["time"]
-            firstPoint = Math.min(thisTime, firstPoint)
-            lastPoint = Math.max(lastPoint, thisTime)
-            if (currentData["timeseries"][i]["time"] > bestStamp) {
-                if (dbg) console.log("Trying to display " + bestStamp + " and found");
+
+    if (lastPlayedTime < 0) {
+        for (var i = currentData["timeseries"].length - 1; i >= 0; i--) {
+            if (currentData["timeseries"][i]["nbChangesets"] > 0) {
                 bestPoint = currentData["timeseries"][i];
                 break;
-            }   
-    } // for i
+            }
+        }
+    } else {
+        for (var i in currentData["timeseries"]) {
+            if (currentData["timeseries"][i]["time"] > lastPlayedTime) {
+                bestPoint = currentData["timeseries"][i];
+                break;
+            }
+        }
+    }
     return bestPoint;
 }
 
@@ -386,21 +389,7 @@ function nextDataTick(){
     var now = new Date().getTime() / 1000;
     bestPoint = getBestPoint(now);
 
-    if (bestPoint == undefined && firstTick) {
-        for (var i = currentData.timeseries.length - 1; i >= 0; i--) {
-            if (currentData.timeseries[i]["nbChangesets"] > 0) {
-                bestPoint = currentData.timeseries[i];
-                break;
-            }
-        }
-    }
-    firstTick = false;
-
     if (bestPoint == undefined) {
-        var bestStamp = now - timeOffset;
-if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
-//        console.log("Found range " + firstPoint +" to " + lastPoint);
-        /* We only redraw the heatLayer each download, because it's slow */
         if (map.hasLayer(heatLayer)) {
             heatLayer._redraw();
         }
@@ -409,7 +398,9 @@ if (dbg) console.log("No more good data for " + new Date(bestStamp*1000) + ")");
 
         return;
     }
-        
+
+    lastPlayedTime = bestPoint["time"];
+
     var cnode = bestPoint["cnode"];
     var mnode = bestPoint["mnode"];
     var dnode = bestPoint["dnode"];
