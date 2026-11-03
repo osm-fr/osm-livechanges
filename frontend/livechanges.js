@@ -18,7 +18,7 @@ var currentlyDetailedIndex = 0;
 
 var scale=5;
 var chart_points = 10;
-var timeOffset= 40;
+var timeOffset= 90;
 var startTime = new Date().getTime();
 var totalCNode = 0, totalMNode = 0, totalDNode = 0;
 var totalCWay = 0, totalMWay = 0, totalDWay = 0;
