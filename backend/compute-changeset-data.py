@@ -55,9 +55,10 @@ def getAndUpdate(node):
     change["id"] = cid
     change["user"] = node.get("user")
     change["uid"] = node.get("uid")
-#    change["time"] = time.mktime(isodate.parse_datetime(node.get("timestamp")).timetuple())
-#    change["time"] = time.mktime(datetime.datetime.strptime(node.get("timestamp"), "%Y-%m-%dT%H:%M:%S%Z").timetuple())
-    change["time"] = time.mktime(iso8601.parse_date(node.get("timestamp")).timetuple())
+    #change["time"] = time.mktime(isodate.parse_datetime(node.get("timestamp")).timetuple())
+    #change["time"] = time.mktime(datetime.datetime.strptime(node.get("timestamp"), "%Y-%m-%dT%H:%M:%S%Z").timetuple())
+    #change["time"] = time.mktime(iso8601.parse_date(node.get("timestamp")).timetuple())
+    change["time"] = time.mktime(iso8601.parse_datetime(node.get("timestamp")).timetuple())
     return change
  
 for cnode in root.xpath("create/node"):
