@@ -26,6 +26,7 @@ var totalCRel = 0, totalMRel = 0, totalDRel = 0;
 var totalChangesets = 0;
 var seenUsers = Array();
 var log_even = true;
+var firstTick = true;
 
 // Top map
 var map = undefined;
@@ -384,6 +385,16 @@ function getFlagImgHtml(changeset) {
 function nextDataTick(){
     var now = new Date().getTime() / 1000;
     bestPoint = getBestPoint(now);
+
+    if (bestPoint == undefined && firstTick) {
+        for (var i = currentData.timeseries.length - 1; i >= 0; i--) {
+            if (currentData.timeseries[i]["nbChangesets"] > 0) {
+                bestPoint = currentData.timeseries[i];
+                break;
+            }
+        }
+    }
+    firstTick = false;
 
     if (bestPoint == undefined) {
         var bestStamp = now - 140;
